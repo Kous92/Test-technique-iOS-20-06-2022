@@ -7,3 +7,4 @@ Phase finale du processus de recrutement, réalisé par Koussaïla BEN MAMAR, le
 - Xcode 14.0 (bêta)
 - Swift 5.6
 - Support iOS 15 et iOS 16 (bêta)
+- Architecture: **MVP**
