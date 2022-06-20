@@ -13,7 +13,6 @@ class ImageResultCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var selectionView: UIView!
     
     func configure(with image: Hit) {
-        setSelected()
         guard let url = image.previewURL, let imageURL = URL(string: url) else {
             return
         }
@@ -23,8 +22,10 @@ class ImageResultCollectionViewCell: UICollectionViewCell {
         imageView.kf.setImage(with: imageURL, options: options)
     }
     
-    func setSelected() {
-        selectionView.backgroundColor = self.isSelected ? .systemBlue : .none
+    override var isSelected: Bool {
+        didSet {
+            selectionView.backgroundColor = self.isSelected ? .systemBlue : .none
+        }
     }
     
     override func prepareForReuse() {

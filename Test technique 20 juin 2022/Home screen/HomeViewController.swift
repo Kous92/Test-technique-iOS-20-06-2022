@@ -32,6 +32,18 @@ class HomeViewController: UIViewController {
         setCollectionView()
         setButton()
     }
+    
+    @IBAction func goToNextView(_ sender: Any) {
+        guard selectedItems.count > 0 else {
+            return
+        }
+        
+        guard let vc = UIStoryboard(name: "Main", bundle: .main).instantiateViewController(withIdentifier: "DetailViewController") as? DetailViewController else {
+            fatalError("Impossible d'instancier DetailViewController")
+        }
+        
+        navigationController?.pushViewController(vc, animated: true)
+    }
 }
 
 extension HomeViewController {
@@ -107,19 +119,13 @@ extension HomeViewController: UISearchBarDelegate {
 
 extension HomeViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let imageCell = collectionView.dequeueReusableCell(withReuseIdentifier: "imageCell", for: indexPath) as? ImageResultCollectionViewCell else {
-            print("Erreur cellule")
-            
-            return
-        }
-        
+        self.selectedItems.append(indexPath.item)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         if selectedItems.contains(indexPath.item) {
             self.selectedItems.remove(at: selectedItems.firstIndex(of: indexPath.item)!)
-        } else {
-            self.selectedItems.append(indexPath.item)
         }
-        
-        imageCell.setSelected()
     }
 }
 
